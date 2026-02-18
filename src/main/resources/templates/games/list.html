@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: main(~{::div})}">
+
+<body>
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1 class="display-4">Game Library</h1>
+            <p class="lead">Discover and review your favorite board games.</p>
+        </div>
+        <div class="col-md-4 text-end align-self-center">
+            <a th:href="@{/games/new}" class="btn btn-primary shadow-sm">Add New Game</a>
+        </div>
+    </div>
+
+    <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" th:each="game : ${games}">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${game.title}">Game Title</h5>
+                    <h6 class="card-subtitle mb-2 text-muted" th:text="${game.genre}">Genre</h6>
+                    <p class="card-text text-truncate" th:text="${game.description}">Description...</p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                    <a th:href="@{/games/{id}(id=${game.id})}" class="btn btn-outline-primary btn-sm w-100">View Details
+                        & Reviews</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${#lists.isEmpty(games)}" class="text-center py-5">
+        <p class="text-muted">No games found in the library yet. Be the first to add one!</p>
+    </div>
+</body>
+
+</html>

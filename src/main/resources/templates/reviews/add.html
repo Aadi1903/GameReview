@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: main(~{::div})}">
+
+<body>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h2 class="h5 mb-0">Write a Review for <span th:text="${game.title}">Game</span></h2>
+                </div>
+                <div class="card-body p-4">
+                    <form th:action="@{/reviews/add/{id}(id=${game.id})}" th:object="${review}" method="post">
+                        <div class="mb-3">
+                            <label for="rating" class="form-label">Rating (1-5)</label>
+                            <select th:field="*{rating}" class="form-select" required>
+                                <option value="5">5 - Excellent</option>
+                                <option value="4">4 - Very Good</option>
+                                <option value="3">3 - Good</option>
+                                <option value="2">2 - Fair</option>
+                                <option value="1">1 - Poor</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="comment" class="form-label">Your Experience (Optional)</label>
+                            <textarea th:field="*{comment}" class="form-control" rows="3"
+                                placeholder="What did you think?"></textarea>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <a th:href="@{/games/{id}(id=${game.id})}" class="btn btn-outline-secondary">Back to
+                                Game</a>
+                            <button type="submit" class="btn btn-success px-4">Submit Review</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
